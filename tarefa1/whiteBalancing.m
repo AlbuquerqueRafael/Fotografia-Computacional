@@ -1,0 +1,37 @@
+function [RGB] = whiteBalancing(RGB, numLinhas, numColunas)
+    RED = 1;
+    GREEN = 2;
+    BLUE = 3;
+   
+    % Fix channel RED -> Matrix represented as [ m1 m3]
+    %                                          [ m2 m4]
+    
+
+      
+    RGB(:,:,GREEN) = 1.05 * RGB(:,:,GREEN);
+    
+    R1 = numLinhas * numColunas * mean(mean(RGB(:,:,GREEN)));
+    R2 = max(max(RGB(:,:,GREEN)));
+    
+    m1 = sum(sum(RGB(:,:,RED).^2));
+    m2 = max(max(RGB(:,:,RED).^2));
+    m3 = sum(sum(RGB(:,:,RED)));
+    m4 = max(max(RGB(:,:,RED)));
+    
+    divisor = (m1*m4) - (m2*m3);
+    
+    u = (R1 * m4 - R2 * m3 ) / double(divisor);
+    v = (R2 * m1 - R1 * m2 ) / double(divisor);
+    
+    
+    RGB(:,:,RED) = u * (RGB(:,:,RED).^2) + v * (RGB(:,:,RED));
+    
+    % Fix channel Blue
+    gMAX = max(max(RGB(:,:,GREEN)));
+    bMAX = max(max(RGB(:,:,BLUE)));
+    beta = gMAX / bMAX;
+    
+    RGB(:,:,BLUE) = beta * RGB(:,:,BLUE);
+  
+  
+end
