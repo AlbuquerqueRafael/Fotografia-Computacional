@@ -1,3 +1,5 @@
+%run main.m first
+
 %constants
 RED = 1;
 GREEN = 2;
