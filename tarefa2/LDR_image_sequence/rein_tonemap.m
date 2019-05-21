@@ -12,15 +12,17 @@ gamma = 2.2;
 gamma_correction = 1 / gamma;
 
 %Compute the average log luminance
-hdr_image1 = hdr_image * 0.7;
+hdr_image1 = hdr_image;
+
 %%Luminance of the linearized intensity 
 lw = hdr_image1(:,:,RED) * 0.299 + hdr_image1(:,:,GREEN) * 0.587 + hdr_image1(:,:,BLUE) * 0.114;
 
 %%Calculating sum
 sum = 0;
+
 for i = 1:numLines
     for j = 1:numCollumns
-       sum = sum + log(lw(i,j) + 0.01);
+       sum = sum + log(lw(i,j) + 0.0001);
     end
 end
 
@@ -35,7 +37,7 @@ for i = 1:numLines
     end
 end
 
-lg = l / 1 + l;
+lg = (l  + l.*2) / 1 + l;
 
 %Calcular final color 
 for i = 1:numLines
@@ -46,6 +48,6 @@ for i = 1:numLines
     end
 end
 
+imshowpair(reinMap, rgb_matlab, 'montage');
 
-imshow(reinMap);
 

@@ -49,7 +49,6 @@ E5 = X5 / exposure5;
 E6 = X6 / exposure6;
 
 EARRAY = {E1, E2, E3, E4, E5, E6};
-hdr_image = zeros(numLines, numCollumns, numChannels);
 sum = 0;
 count = 0;
 
@@ -58,7 +57,6 @@ for i = 1:numLines
         for k = 1:numChannels
            for z= 1:numImages
               auxE = EARRAY{z};
-              count = count + 1;
               sum = sum + auxE(i,j,k);
            end
            hdr_image(i,j,k) = sum / 6;
