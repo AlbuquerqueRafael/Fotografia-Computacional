@@ -1,0 +1,7 @@
+image = imread('cameraman.tif');
+image = double(image);
+image = image / max(max(image);
+dft = fft2(image);
+
+real = ifft2(dft);
+imaginary = ifft2(imag(dft));

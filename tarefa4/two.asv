@@ -1,0 +1,6 @@
+image = imread('cameraman_small.tif');
+[M,N] = size(image);
+image = im2double(image);
+F = dft(M,N,image);
+
+
